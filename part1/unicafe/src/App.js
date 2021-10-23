@@ -9,9 +9,7 @@ function Heading(props) {
 
 function Button(props) {
   return (
-    <>
-      <button onClick={props.handleClick}>{props.name}</button>
-    </>
+    <button onClick={props.handleClick}>{props.name}</button>
   )
 }
 
@@ -22,34 +20,32 @@ function Statistics({ stats }) {
   const positivesAverage = ((stats.good / total) * 100).toPrecision(4)
   if (total !== 0) {
     return (
-      <>
-        <table>
-          <thead>
-            <tr>
-              <th>Good (1)</th>
-              <th>Neutral (0)</th>
-              <th>Bad (-1)</th>
-              <th>All</th>
-              <th>Average</th>
-              <th>Positives</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{stats.good}</td>
-              <td>{stats.neutral}</td>
-              <td>{stats.bad}</td>
-              <td>{total}</td>
-              <td>{average}</td>
-              <td>{positivesAverage}%</td>
-            </tr>
-          </tbody>
-        </table>
-      </>
+      <table>
+        <thead>
+          <tr>
+            <th>Good (1)</th>
+            <th>Neutral (0)</th>
+            <th>Bad (-1)</th>
+            <th>All</th>
+            <th>Average</th>
+            <th>Positives</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{stats.good}</td>
+            <td>{stats.neutral}</td>
+            <td>{stats.bad}</td>
+            <td>{total}</td>
+            <td>{average}</td>
+            <td>{positivesAverage}%</td>
+          </tr>
+        </tbody>
+      </table>
     )
   }
   return (
-    <p>No statistics</p>
+    <p>No statistics available to display</p>
   )
 }
 
