@@ -15,32 +15,35 @@ function Button(props) {
   )
 }
 
-function Statistics(props) {
-  const total = props.bad + props.good + props.neutral
+function Statistics({ stats }) {
+  const total = stats.bad + stats.good + stats.neutral
 
-  const average = parseFloat((props.stats.reduce((a, b) => a + b, 0) / props.stats.length)).toPrecision(4)
-  const positivesAverage = parseFloat((props.stats.filter(stat => stat === 1).reduce((a, b) => a + b, 0) / props.stats.length) * 100).toPrecision(4)
-
-  if (props.stats.length > 0) {
+  const average = ((stats.bad * -1 + stats.good) / total).toPrecision(4)
+  const positivesAverage = ((stats.good / total) * 100).toPrecision(4)
+  if (total !== 0) {
     return (
       <>
-        <table className="table">
-          <tr>
-            <th>Good</th>
-            <th>Neutral</th>
-            <th>Bad</th>
-            <th>All</th>
-            <th>Average</th>
-            <th>Positives</th>
-          </tr>
-          <tr>
-            <td>{props.good}</td>
-            <td>{props.neutral}</td>
-            <td>{props.bad}</td>
-            <td>{total}</td>
-            <td>{average}</td>
-            <td>{positivesAverage}%</td>
-          </tr>
+        <table>
+          <thead>
+            <tr>
+              <th>Good (1)</th>
+              <th>Neutral (0)</th>
+              <th>Bad (-1)</th>
+              <th>All</th>
+              <th>Average</th>
+              <th>Positives</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{stats.good}</td>
+              <td>{stats.neutral}</td>
+              <td>{stats.bad}</td>
+              <td>{total}</td>
+              <td>{average}</td>
+              <td>{positivesAverage}%</td>
+            </tr>
+          </tbody>
         </table>
       </>
     )
@@ -48,7 +51,6 @@ function Statistics(props) {
   return (
     <p>No statistics</p>
   )
-
 }
 
 export default function App() {
@@ -56,36 +58,37 @@ export default function App() {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
-  const [stats, setStats] = useState([])
+  const [stats, setStats] = useState({
+    good: 0,
+    neutral: 0,
+    bad: 0
+  })
 
   function handleGoodClick() {
     const arr = {
+      ...stats,
       good: good + 1,
-      neutral: neutral,
-      bad: bad
     }
     setGood(arr.good)
-    setStats(stats.concat(1))
+    setStats(arr)
   }
 
   function handleNeutralClick() {
     const arr = {
-      good: good,
+      ...stats,
       neutral: neutral + 1,
-      bad: bad
     }
     setNeutral(arr.neutral)
-    setStats(stats.concat(0))
+    setStats(arr)
   }
 
   function handleBadClick() {
     const arr = {
-      good: good,
-      neutral: neutral,
+      ...stats,
       bad: bad + 1
     }
     setBad(arr.bad)
-    setStats(stats.concat(-1))
+    setStats(arr)
   }
 
   return (
@@ -95,7 +98,7 @@ export default function App() {
       <Button handleClick={handleNeutralClick} name="Neutral" />
       <Button handleClick={handleBadClick} name="Bad" />
       <Heading name="Statistics" />
-      <Statistics good={good} bad={bad} neutral={neutral} stats={stats} />
+      <Statistics stats={stats} />
     </>
   )
 }
