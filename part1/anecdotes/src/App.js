@@ -1,60 +1,56 @@
 import React, { useState } from 'react'
 
-function MostVotes({ anecdotes, points }) {
+const anecdotes = [
+  'If it hurts, do it more often',
+  'Adding manpower to a late software project makes it later!',
+  'The first 90 percent of the code accounts for the first 10 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
+  'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
+  'Premature optimization is the root of all evil.',
+  'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
+  'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients'
+]
 
-  let max = points[0]
-  let loc = 0
+function MostVotes({ mostVotes, votes }) {
 
-  for (let point in points) {
-    if (points[point] > max) {
-      max = points[point]
-      loc = point
-    }
+  if (mostVotes !== -1) {
+    return (
+      <>
+        <p>{anecdotes[mostVotes]}</p>
+        <p>This anecdote has {votes[mostVotes]} votes</p>
+      </>
+    )
   }
-  // for (let dote in props.anecdotes) {
-  //   console.log(props.anecdotes[dote]);
-  // }
-
   return (
-    <>
-      <p>{anecdotes[loc]}</p>
-      <p>This anecdote has {max} votes</p>
-    </>
+    <p>No votes cast!</p>
   )
+
 }
 
 export default function App() {
-  const anecdotes = [
-    'If it hurts, do it more often',
-    'Adding manpower to a late software project makes it later!',
-    'The first 90 percent of the code accounts for the first 10 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
-    'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
-    'Premature optimization is the root of all evil.',
-    'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
-    'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients'
-  ]
+  function calcRand() {
+    return Math.floor(Math.random() * anecdotes.length)
+  }
 
-  const [selected, setSelected] = useState(Math.floor(Math.random() * anecdotes.length))
-  const [points, setPoints] = useState({
-    0: 0,
-    1: 0,
-    2: 0,
-    3: 0,
-    4: 0,
-    5: 0,
-    6: 0
-  })
+  const [selected, setSelected] = useState(calcRand())
+  const [votes, setVotes] = useState({})
+  const [mostVotes, setMostVotes] = useState(-1)
 
   function vote() {
     const arr = {
-      ...points
+      ...votes,
+      [selected]: (votes[selected] || 0) + 1
     }
-    arr[selected] += 1
-    setPoints(arr)
+    if (!votes[mostVotes] || votes[selected] + 1 > votes[mostVotes]) {
+      setMostVotes(selected)
+    }
+    setVotes(arr)
   }
 
   function handleClick() {
-    const random = Math.floor(Math.random() * anecdotes.length)
+    let random = calcRand()
+    while (random === selected) {
+      random = calcRand()
+    }
     setSelected(random)
   }
 
@@ -62,11 +58,11 @@ export default function App() {
     <div>
       <h1>Anecdote of the Day</h1>
       <p>{anecdotes[selected]}</p>
-      <p>This anecdote has {points[selected]} votes</p>
+      <p>This anecdote has {votes[selected] > 0 ? votes[selected] : "no"} votes</p>
       <button onClick={handleClick}>next anecdote</button>
       <button onClick={vote}>vote</button>
       <h2>Anecdote with the most votes</h2>
-      <MostVotes anecdotes={anecdotes} points={points} />
+      <MostVotes mostVotes={mostVotes} votes={votes} />
     </div>
   )
 }
