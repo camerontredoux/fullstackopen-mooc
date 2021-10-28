@@ -85,19 +85,23 @@ const App = () => {
   }
 
   const course = {
+    id: 1,
     name: 'Half Stack application development',
     parts: [
       {
         part: 'Fundamentals of React',
-        exercises: 10
+        exercises: 10,
+        id: 1
       },
       {
         part: 'Using props to pass data',
-        exercises: 7
+        exercises: 7,
+        id: 2
       },
       {
         part: 'State of a component',
-        exercises: 14
+        exercises: 14,
+        id: 3
       }
     ]
   }
@@ -118,57 +122,5 @@ const App = () => {
     </>
   )
 }
-
-// const App = () => {
-
-//   const [clicks, setClicks] = useState({
-//     left: 0,
-//     right: 0
-//   })
-
-//   const course = {
-//     name: 'Half Stack application development',
-//     parts: [
-//       {
-//         part: 'Fundamentals of React',
-//         exercises: 10
-//       },
-//       {
-//         part: 'Using props to pass data',
-//         exercises: 7
-//       },
-//       {
-//         part: 'State of a component',
-//         exercises: 14
-//       }
-//     ]
-//   }
-
-//   const handleClickLeft = () => {
-//     setClicks({
-//       ...clicks,
-//       left: clicks.left + 1
-//     })
-//   }
-
-//   const handleClickRight = () => {
-//     setClicks({
-//       ...clicks,
-//       right: clicks.right + 1
-//     })
-//   }
-
-//   return (
-//     <>
-//       <Header course={course.name} />
-//       <Content parts={course.parts} />
-//       <Total parts={course.parts} />
-//       <Display text={clicks.left} />
-//       <Button onClick={handleClickLeft} name="Left" />
-//       <Button onClick={handleClickRight} name="Right" />
-//       <Display text={clicks.right} />
-//     </>
-//   );
-// }
 
 export default App
