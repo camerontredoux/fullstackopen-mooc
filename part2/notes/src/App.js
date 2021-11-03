@@ -1,10 +1,27 @@
-import React, { useState } from 'react'
-import Note from './components/Note'
+import React, { useState, useEffect } from 'react'
+import Form from './components/Form'
+import Notes from './components/Notes'
+import axios from "axios"
 
-const App = (props) => {
-  const [notes, setNotes] = useState(props.notes)
+const App = () => {
+  const [notes, setNotes] = useState([])
   const [newNote, setNewNote] = useState("a new note...")
   const [showAll, setShowAll] = useState(true)
+
+  const hook = () => {
+    console.log("effect");
+    const eventHandler = res => {
+      console.log("finished retrieving data");
+      let data = res.data
+      setNotes(data)
+    }
+
+    const promise = axios.get("http://localhost:3001/notes")
+    promise.then(eventHandler)
+  }
+
+  useEffect(hook, [])
+  console.log("render", notes.length, " notes");
 
   const addNote = (event) => {
     event.preventDefault()
@@ -28,18 +45,11 @@ const App = (props) => {
   return (
     <div>
       <h1>Notes</h1>
-      <ul>
-        {notesToShow.map(note =>
-          <Note key={note.id} note={note} />
-        )}
-      </ul>
+      <Notes notesToShow={notesToShow} />
       <button onClick={() => setShowAll(!showAll)}>
         show {showAll ? "important" : "all"}
       </button>
-      <form onSubmit={addNote}>
-        <input value={newNote} onChange={handleNoteChange} />
-        <button type="submit">save</button>
-      </form>
+      <Form addNote={addNote} newNote={newNote} handleNoteChange={handleNoteChange} />
     </div>
   )
 }
