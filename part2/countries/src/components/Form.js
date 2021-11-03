@@ -1,7 +1,7 @@
 const Form = (props) => {
   return (
-    <form onSubmit={props.hFS}>
-      Find countries: <input onChange={props.hFC}></input>
+    <form onSubmit={props.handleFormSubmit}>
+      Find countries: <input onChange={props.handleFormChange}></input>
     </form>
   )
 }

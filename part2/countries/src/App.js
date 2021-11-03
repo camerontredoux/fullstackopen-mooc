@@ -24,7 +24,7 @@ const App = () => {
 
   return (
     <>
-      <Form hFS={handleFormSubmit} hFC={handleFormChange} />
+      <Form handleFormSubmit={handleFormSubmit} handleFormChange={handleFormChange} />
       <CountryList countryList={countryList} country={country} />
     </>
   )
