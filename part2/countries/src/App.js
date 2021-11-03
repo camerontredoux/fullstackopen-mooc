@@ -1,10 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
+import axios from "axios"
+import Form from './components/Form'
+import CountryList from './components/CountryList'
 
 const App = () => {
+
+  const [country, setCountry] = useState('')
+  const [countryList, setCountryList] = useState([])
+
+  useEffect(() => {
+    axios.get("https://restcountries.com/v3.1/all").then(res => {
+      setCountryList(res.data)
+    })
+  }, [])
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault()
+  }
+
+  const handleFormChange = (event) => {
+    setCountry(event.target.value)
+  }
+
   return (
     <>
+      <Form hFS={handleFormSubmit} hFC={handleFormChange} />
+      <CountryList countryList={countryList} country={country} />
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App
