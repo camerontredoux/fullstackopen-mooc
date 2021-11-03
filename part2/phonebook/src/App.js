@@ -12,10 +12,11 @@ const App = () => {
         setPersons(res.data)
       })
   }, [])
+
   const [newName, setNewName] = useState('')
   const [newPhone, setNewPhone] = useState('')
   const [search, setSearch] = useState('')
-
+  console.log("test");
   const handleInputChange = (event) => {
     setNewName(event.target.value)
   }
