@@ -1,4 +1,4 @@
-import { Button, ListItem, Typography, List, ListItemButton, ListItemText } from "@mui/material"
+import { ListItem, Typography, List, ListItemButton, ListItemText } from "@mui/material"
 import { useState } from "react";
 import Capitals from "./Capitals";
 
@@ -46,11 +46,10 @@ const Country = (props) => {
     )
   } else {
     return (
-      <List>
-        <ListItem key={country.name.common} disablePadding>
+      <List disablePadding>
+        <ListItem key={country.name.common} onClick={renderInfo} disablePadding>
           <ListItemButton>
             <ListItemText primary={country.name.common} />
-            <Button onClick={renderInfo}>Show</Button>
           </ListItemButton>
         </ListItem>
         {showInfo && <CountryInfo country={country} languages={languages} />}
