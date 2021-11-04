@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from "axios"
 import Form from './components/Form'
 import CountryList from './components/CountryList'
+import "./index.css"
 
 const App = () => {
 
@@ -23,10 +24,10 @@ const App = () => {
   }
 
   return (
-    <>
+    <div className="app">
       <Form handleFormSubmit={handleFormSubmit} handleFormChange={handleFormChange} />
       <CountryList countryList={countryList} country={country} />
-    </>
+    </div>
   )
 }
 

@@ -13,13 +13,13 @@ const Country = (props) => {
       <>
         <h1>{country.name.common}</h1>
         <div>
-          capital
+          Capital(s):
           <ul>
             {capitals}
           </ul>
         </div>
         <div>
-          population {country.population}
+          Population: {Intl.NumberFormat().format(country.population)}
         </div>
         <h2>Languages</h2>
         <ul>
