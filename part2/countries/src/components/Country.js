@@ -1,29 +1,37 @@
+import { Typography, styled } from "@mui/material"
+import Capitals from "./Capitals";
+
+const Div = styled('div')(({ theme }) => ({
+  ...theme.typography.button,
+  backgroundColor: theme.palette.background.paper,
+  padding: theme.spacing(0),
+}));
+
 const Country = (props) => {
 
   const country = props.country
 
   if (props.countries.length === 1) {
-    const languages = country.hasOwnProperty("languages") ? Object.values(country.languages).map(language => {
+    const languages = "languages" in country ? Object.values(country.languages).map(language => {
       return <li key={language} > {language}</li>
-    }) : <h3>No language</h3>
-    const capitals = country.hasOwnProperty("capital") ? country.capital.map(capital => {
-      return <li key={capital}>{capital}</li>
-    }) : <h3>No capital</h3>
+    }) : <Typography fontFamily="Roboto" color="text.primary" variant="button">{"No languages"}</Typography>
+
     return (
       <>
-        <h1>{country.name.common}</h1>
-        <div>
-          Capital(s):
-          <ul>
-            {capitals}
-          </ul>
-        </div>
+        <Typography fontFamily="Roboto" color="text.primary" variant="h4">
+          {country.name.common}
+        </Typography>
+        <Capitals country={props.country} />
         <div>
           Population: {Intl.NumberFormat().format(country.population)}
         </div>
-        <h2>Languages</h2>
+        <Typography fontFamily="Roboto" color="text.primary" variant="h4">
+          {"Languages "}
+        </Typography>
         <ul>
-          {languages}
+          <Typography fontFamily="Roboto" color="text.primary" variant="body1">
+            {languages}
+          </Typography>
         </ul>
         <img src={country.flags.svg} alt="flag of country" width="200"></img>
       </>
