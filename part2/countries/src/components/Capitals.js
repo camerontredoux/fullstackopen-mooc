@@ -3,7 +3,7 @@ import { List, ListItem, ListItemButton, ListItemText, Typography } from "@mui/m
 
 const CapitalListItem = (props) => {
   return (
-    <ListItem key={props.text} disablePadding>
+    <ListItem disablePadding>
       <ListItemButton>
         <ListItemText primary={props.text} />
       </ListItemButton>
