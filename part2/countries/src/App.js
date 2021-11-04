@@ -8,8 +8,26 @@ const App = () => {
   const [country, setCountry] = useState('')
   const [countryList, setCountryList] = useState([])
 
+  // useEffect(() => {
+  //   axios.get("https://www.bungie.net/Platform/Destiny2/3/Account/4611686018480403495/Character/2305843009384004160/Stats", {
+  //     onUploadProgress: progressEvent => {
+  //       console.log(progressEvent);
+  //       const total = parseFloat(progressEvent)
+  //       const current = progressEvent.loaded
+  //       let percentCompleted = Math.floor(current / total * 100)
+  //       console.log('completed: ', percentCompleted)
+  //     },
+  //     headers: {
+  //       "X-API-Key": "5de4d04c636c4cddaefccbf7e453acd1"
+  //     }
+  //   }).then(res => {
+  //     console.log(res.data);
+  //     setCountryList(res.data)
+  //   })
+  // }, [])
+
   useEffect(() => {
-    axios.get("https://restcountries.com/v3.1/all").then(res => {
+    axios.get("/api").then(res => {
       setCountryList(res.data)
     })
   }, [])
