@@ -3,12 +3,12 @@ const Country = (props) => {
   const country = props.country
 
   if (props.countries.length === 1) {
-    const languages = Object.values(country.languages).map(language => {
+    const languages = country.hasOwnProperty("languages") ? Object.values(country.languages).map(language => {
       return <li key={language} > {language}</li>
-    })
-    const capitals = country.capital.map(capital => {
+    }) : <h3>No language</h3>
+    const capitals = country.hasOwnProperty("capital") ? country.capital.map(capital => {
       return <li key={capital}>{capital}</li>
-    })
+    }) : <h3>No capital</h3>
     return (
       <>
         <h1>{country.name.common}</h1>
