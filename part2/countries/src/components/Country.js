@@ -1,11 +1,5 @@
-import { Typography, styled } from "@mui/material"
+import { Typography } from "@mui/material"
 import Capitals from "./Capitals";
-
-const Div = styled('div')(({ theme }) => ({
-  ...theme.typography.button,
-  backgroundColor: theme.palette.background.paper,
-  padding: theme.spacing(0),
-}));
 
 const Country = (props) => {
 
