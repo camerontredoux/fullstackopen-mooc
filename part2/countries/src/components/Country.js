@@ -1,14 +1,14 @@
 const Country = (props) => {
 
   const country = props.country
-  const languages = Object.values(country.languages).map(language => {
-    return <li key={language} > {language}</li >
-  })
-  const capitals = Object.values(country.capital).map(capital => {
-    return <li key={capital}>{capital}</li>
-  })
 
   if (props.countries.length === 1) {
+    const languages = Object.values(country.languages).map(language => {
+      return <li key={language} > {language}</li>
+    })
+    const capitals = country.capital.map(capital => {
+      return <li key={capital}>{capital}</li>
+    })
     return (
       <>
         <h1>{country.name.common}</h1>
