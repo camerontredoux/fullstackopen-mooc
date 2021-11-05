@@ -9,7 +9,7 @@ const CountryList = (props) => {
     <>
       {
         filtered.length > 10 ? "Too many matches, specify another filter" :
-          filtered.length === 0 ? "No matches" :
+          filtered.length === 0 ? "No countries found!" :
             filtered.map(c => <Country key={props.countryList.indexOf(c)} country={c} countries={filtered} />)
       }
     </>
