@@ -10,7 +10,7 @@ const App = () => {
   const [countryList, setCountryList] = useState([])
 
   useEffect(() => {
-    axios.get("/api").then(res => {
+    axios.get("/countries").then(res => {
       setCountryList(res.data)
     })
   }, [])

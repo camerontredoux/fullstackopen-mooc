@@ -1,8 +1,19 @@
 import { ListItem, Typography, List, ListItemButton, ListItemText } from "@mui/material"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Capitals from "./Capitals";
+import axios from "axios"
 
 const CountryInfo = ({ country, languages }) => {
+  const capital = "capital" in country ? country.capital[0] : ""
+  const [weather, setWeather] = useState({})
+  useEffect(() => {
+    axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${capital}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`).then(res => {
+      setWeather(res.data)
+    }).catch(e => {
+      console.log(e);
+    })
+  }, [capital])
+
   return (
     <>
       <Typography fontFamily="Roboto" color="text.primary" variant="h4">
@@ -21,6 +32,12 @@ const CountryInfo = ({ country, languages }) => {
         </Typography>
       </ul>
       <img src={country.flags.svg} alt="flag of country" width="200"></img>
+      <Typography fontFamily="Roboto" color="text.primary" variant="h4">
+        {"Weather"}
+      </Typography>
+      <div>
+        Temperature: {"main" in weather && (weather.main.temp - 273.15).toFixed(2)} ºC
+      </div>
     </>
   )
 }
