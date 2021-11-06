@@ -1,5 +1,6 @@
-import { ListItem, Typography, List, ListItemButton, ListItemText } from "@mui/material"
+import { ListItem, Typography, List, ListItemButton, ListItemText, ListItemIcon } from "@mui/material"
 import { useState, useEffect } from "react";
+import PublicIcon from '@mui/icons-material/Public';
 import Capitals from "./Capitals";
 import axios from "axios"
 
@@ -66,6 +67,9 @@ const Country = (props) => {
       <List disablePadding>
         <ListItem key={country.name.common} onClick={renderInfo} disablePadding>
           <ListItemButton>
+            <ListItemIcon>
+              <PublicIcon />
+            </ListItemIcon>
             <ListItemText primary={country.name.common} />
           </ListItemButton>
         </ListItem>

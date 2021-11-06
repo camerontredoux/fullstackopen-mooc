@@ -1,5 +1,4 @@
 import { List, ListItem, ListItemButton, ListItemText, Typography } from "@mui/material"
-// import { InboxIcon } from "@mui/icons-material"
 
 const CapitalListItem = (props) => {
   return (
